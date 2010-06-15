@@ -1,5 +1,5 @@
 #!/bin/sh
-VER=5.2.1
+VER=6.5
 DIST=quaqua-${VER}.zip
 UNZIPDIR=Quaqua
 DISTDIR=${UNZIPDIR}/dist
