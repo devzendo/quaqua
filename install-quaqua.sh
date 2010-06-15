@@ -10,6 +10,7 @@ cp quaqua.jar ../../quaqua-${VER}.jar
 cd ../..
 echo press return to install:
 ls -l quaqua-${VER}.jar libquaqua-${VER}.zip
+unzip l libquaqua-${VER}.zip
 read TRASH
 mvn install:install-file -Dfile=libquaqua-${VER}.zip \
 	-DgroupId=ch.randelshofer -DartifactId=libquaqua \
