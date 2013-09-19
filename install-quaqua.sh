@@ -21,3 +21,4 @@ mvn install:install-file -Dfile=quaqua-${VER}.jar \
 	-Dversion=${VER} -Dpackaging=jar -DcreateChecksum=true \
 	-DgeneratePom=true
 rm -rf ${UNZIPDIR}
+rm quaqua-${VER}.jar libquaqua-${VER}.zip
