@@ -1,14 +1,16 @@
 #!/bin/bash
 VER=7.3.4
-MVNVER=${VER}-SNAPSHOT
+MVNVER=${VER}
+#MVNVER=${VER}-SNAPSHOT
 DIST=quaqua-${VER}.zip
 UNZIPDIR=Quaqua
 DISTDIR=${UNZIPDIR}/dist
 
 cleanup() {
   rm -rf ${UNZIPDIR}
-  rm quaqua-${VER}.jar libquaqua-${VER}.zip
+  rm quaqua-${MVNVER}.jar libquaqua-${MVNVER}.zip
   rm quaqua.pom.xml libquaqua.pom.xml
+  rm *.asc > /dev/null
 }
 
 cleanup
@@ -39,7 +41,6 @@ mvn install:install-file -Dfile=quaqua-${MVNVER}.jar \
 if [ "${MVNVER}" = "${VER}-SNAPSHOT" ]; then
     echo "====== press return to deploy snapshot ======"
     read TRASH
-    ls -la
     mvn deploy:deploy-file \
          -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
          -DrepositoryId=sonatype-nexus-snapshots -DpomFile=libquaqua.pom.xml \
@@ -53,11 +54,11 @@ else
     read TRASH
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
-         -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml
+         -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
          -Dfile=libquaqua-${MVNVER}.zip
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
-         -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml
+         -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
          -Dfile=quaqua-${MVNVER}.jar
 fi
 
