@@ -5,6 +5,7 @@
     <artifactId>LibQuaqua</artifactId>
     <name>LibQuaqua</name>
     <version>VERSION</version>
+    <packaging>zip</packaging>
     <description>A Mavenisation of the Quaqua Mac OSX Swing Look and Feel (JNI library)
 Quaqua Look and Feel (C) 2003-2010, Werner Randelshofer. 
 Mavenisation by Matt Gumbley, DevZendo.org - for problems with
