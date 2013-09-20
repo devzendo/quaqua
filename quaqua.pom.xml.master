@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.devzendo</groupId>
+    <artifactId>Quaqua</artifactId>
+    <name>Quaqua</name>
+    <version>VERSION</version>
+    <description>A Mavenisation of the Quaqua Mac OSX Swing Look and Feel (Java library)
+Quaqua Look and Feel (C) 2003-2010, Werner Randelshofer. 
+Mavenisation by Matt Gumbley, DevZendo.org - for problems with
+Mavenisation, see Matt; for issues with Quaqua, see the Quaqua home page.
+    </description>
+    <url>http://randelshofer.ch/quaqua</url>
+
+    <organization>
+        <name>Quaqua: Werner Randelshofer ; Mavenisation: Matt Gumbley</name>
+        <url>Quaqua: http://randelshofer.ch/quaqua ; Mavenisation: http://devzendo.org/</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html</url>
+            <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>Modified BSD License</name>
+            <url>http://opensource.org/licenses/BSD-3-Clause</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <!-- Note that the scm locations are where releases of Quaqua are stored,
+         along with the Mavenisation script. See Werner's site for master
+         releases of Quaqua. -->
+    <scm>
+        <url>http://devzendo-org-quaqua.googlecode.com/hg/</url>
+        <connection>scm:hg:http://devzendo-org-quaqua.googlecode.com/hg/
+        </connection>
+        <developerConnection>
+            scm:hg:https://devzendo-org-quaqua.googlecode.com/hg/
+        </developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <id>werner.randelshofer</id>
+            <name>Werner Randelshofer</name>
+            <email>werner.randelshofer@bluewin.ch</email>
+        </developer>
+        <developer>
+            <id>matt.gumbley</id>
+            <name>Matt Gumbley</name>
+            <email>matt.gumbley@devzendo.org</email>
+        </developer>
+    </developers>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+</project>
