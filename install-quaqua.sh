@@ -1,31 +1,47 @@
 #!/bin/bash
 VER=7.3.4
-MVNVER=${VER}
-#MVNVER=${VER}-SNAPSHOT
+#MVNVER=${VER}
+MVNVER=${VER}-SNAPSHOT
 DIST=quaqua-${VER}.zip
 UNZIPDIR=Quaqua
 DISTDIR=${UNZIPDIR}/dist
 
 cleanup() {
-  rm -rf ${UNZIPDIR}
-  rm quaqua-${MVNVER}.jar libquaqua-${MVNVER}.zip
-  rm quaqua.pom.xml libquaqua.pom.xml
-  rm *.asc > /dev/null
+  rm -rf ${UNZIPDIR} 2> /dev/null
+  rm quaqua-${MVNVER}.jar libquaqua-${MVNVER}.zip quaqua-${MVNVER}-sources.jar 2> /dev/null
+  rm quaqua.pom.xml libquaqua.pom.xml 2> /dev/null
+  rm *.asc 2> /dev/null
 }
 
 cleanup
 echo "==== unzipping from ${DIST} ===="
-unzip ${DIST} ${DISTDIR}/libquaqua.jnilib ${DISTDIR}/libquaqua64.jnilib ${DISTDIR}/quaqua.jar
+unzip -q ${DIST} ${DISTDIR}/libquaqua.jnilib ${DISTDIR}/libquaqua64.jnilib ${DISTDIR}/quaqua.jar ${UNZIPDIR}/src/*
+
+echo "===== making release files ====="
 cd ${DISTDIR}
+# Quaqua/dist
 zip ../../libquaqua-${MVNVER}.zip libquaqua*
+
 cp quaqua.jar ../../quaqua-${MVNVER}.jar 
+
+cd ../src
+# Quaqua/src
+jar cf ../../quaqua-${MVNVER}-sources.jar .
+
 cd ../..
+# root
+
 sed -e s/VERSION/${MVNVER}/g < quaqua.pom.xml.master > quaqua.pom.xml
 sed -e s/VERSION/${MVNVER}/g < libquaqua.pom.xml.master > libquaqua.pom.xml
 echo "========= installation contents ========="
-ls -l quaqua-${MVNVER}.jar libquaqua-${MVNVER}.zip
+ls -l quaqua-${MVNVER}.jar libquaqua-${MVNVER}.zip quaqua-${MVNVER}-sources.jar
+
+echo "=====-=== press return to view =========="
+read TRASH
 echo "============== zip contents ============="
 unzip -l libquaqua-${MVNVER}.zip
+echo "========== source jar contents =========="
+jar tf quaqua-${MVNVER}-sources.jar
 
 echo "======== press return to install ========"
 read TRASH
@@ -37,6 +53,11 @@ mvn install:install-file -Dfile=quaqua-${MVNVER}.jar \
 	-DgroupId=org.devzendo -DartifactId=Quaqua \
 	-Dversion=${MVNVER} -Dpackaging=jar -DcreateChecksum=true \
 	-DpomFile=quaqua.pom.xml
+mvn install:install-file -Dfile=quaqua-${MVNVER}-sources.jar \
+	-DgroupId=org.devzendo -DartifactId=Quaqua \
+	-Dversion=${MVNVER} -Dpackaging=jar -DcreateChecksum=true \
+        -Dclassifier=sources -DpomFile=quaqua.pom.xml
+
 
 if [ "${MVNVER}" = "${VER}-SNAPSHOT" ]; then
     echo "====== press return to deploy snapshot ======"
@@ -49,6 +70,10 @@ if [ "${MVNVER}" = "${VER}-SNAPSHOT" ]; then
          -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
          -DrepositoryId=sonatype-nexus-snapshots -DpomFile=quaqua.pom.xml \
          -Dfile=quaqua-${MVNVER}.jar
+    mvn deploy:deploy-file \
+         -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
+         -DrepositoryId=sonatype-nexus-snapshots -DpomFile=quaqua.pom.xml \
+         -Dfile=quaqua-${MVNVER}-sources.jar -Dclassifier=sources
 else
     echo "====== press return to sign/deploy non-snapshot ======"
     read TRASH
@@ -60,6 +85,10 @@ else
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
          -Dfile=quaqua-${MVNVER}.jar
+    mvn gpg:sign-and-deploy-file \
+         -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
+         -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
+         -Dfile=quaqua-${MVNVER}-sources.jar -Dclassifier=sources
 fi
 
 cleanup
