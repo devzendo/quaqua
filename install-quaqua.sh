@@ -126,14 +126,14 @@ else
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}.zip -Darguments=-Dgpg.passphrase="$PP" \
+         -Dfile=libquaqua-${MVNVER}.zip -Dgpg.passphrase="$PP" \
          -Dclassifiers=sources,javadoc \
          -Dfiles=libquaqua-${MVNVER}-sources.jar,libquaqua-${MVNVER}-javadoc.jar \
          -Dtypes=jar,jar
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}.jar -Darguments=-Dgpg.passphrase="$PP" \
+         -Dfile=quaqua-${MVNVER}.jar -Dgpg.passphrase="$PP" \
          -Dclassifiers=sources,javadoc \
          -Dfiles=quaqua-${MVNVER}-sources.jar,quaqua-${MVNVER}-javadoc.jar \
          -Dtypes=jar,jar
