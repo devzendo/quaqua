@@ -1,7 +1,7 @@
 #!/bin/bash
 VER=7.3.4
-#MVNVER=${VER}
-MVNVER=${VER}-SNAPSHOT
+MVNVER=${VER}
+#MVNVER=${VER}-SNAPSHOT
 DIST=quaqua-${VER}.zip
 UNZIPDIR=Quaqua
 DISTDIR=${UNZIPDIR}/dist
@@ -126,27 +126,17 @@ else
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}.zip -Darguments=-Dgpg.passphrase="$PP"
-    mvn gpg:sign-and-deploy-file \
-         -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
-         -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}-sources.jar -Dclassifier=sources -Darguments=-Dgpg.passphrase="$PP"
-    mvn gpg:sign-and-deploy-file \
-         -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
-         -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc -Darguments=-Dgpg.passphrase="$PP"
+         -Dfile=libquaqua-${MVNVER}.zip -Darguments=-Dgpg.passphrase="$PP" \
+         -Dclassifiers=sources,javadoc \
+         -Dfiles=libquaqua-${MVNVER}-sources.jar,libquaqua-${MVNVER}-javadoc.jar \
+         -Dtypes=jar,jar
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}.jar -Darguments=-Dgpg.passphrase="$PP"
-    mvn gpg:sign-and-deploy-file \
-         -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
-         -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}-sources.jar -Dclassifier=sources -Darguments=-Dgpg.passphrase="$PP"
-    mvn gpg:sign-and-deploy-file \
-         -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
-         -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc -Darguments=-Dgpg.passphrase="$PP"
+         -Dfile=quaqua-${MVNVER}.jar -Darguments=-Dgpg.passphrase="$PP" \
+         -Dclassifiers=sources,javadoc \
+         -Dfiles=quaqua-${MVNVER}-sources.jar,quaqua-${MVNVER}-javadoc.jar \
+         -Dtypes=jar,jar
 fi
 
 cleanup
