@@ -35,6 +35,13 @@ jar cf ../../quaqua-${MVNVER}-sources.jar .
 cd ../native
 # Quaqua/native
 jar cf ../../libquaqua-${MVNVER}-sources.jar .
+doxygen ../../doxygen.conf > /dev/null 2>&1
+cd html
+# Quaqua/native/html
+jar cf ../../../libquaqua-${MVNVER}-javadoc.jar .
+
+cd ..
+# Quaqua/native
 
 cd ../..
 # root
@@ -43,7 +50,7 @@ sed -e s/VERSION/${MVNVER}/g < quaqua.pom.xml.master > quaqua.pom.xml
 sed -e s/VERSION/${MVNVER}/g < libquaqua.pom.xml.master > libquaqua.pom.xml
 echo "========= installation contents ========="
 ls -l quaqua-${MVNVER}.jar libquaqua-${MVNVER}.zip quaqua-${MVNVER}-sources.jar quaqua-${MVNVER}-javadoc.jar \
-	libquaqua-${MVNVER}-sources.jar
+	libquaqua-${MVNVER}-sources.jar libquaqua-${MVNVER}-javadoc.jar
 
 echo "========= press return to view =========="
 read TRASH
@@ -55,6 +62,8 @@ echo "======= native source jar contents ======"
 jar tf libquaqua-${MVNVER}-sources.jar
 echo "========= javadoc jar contents =========="
 jar tf quaqua-${MVNVER}-javadoc.jar
+echo "====== native javadoc jar contents ======"
+jar tf libquaqua-${MVNVER}-javadoc.jar
 
 echo "======== press return to install ========"
 read TRASH
@@ -66,6 +75,10 @@ mvn install:install-file -Dfile=libquaqua-${MVNVER}-sources.jar \
 	-DgroupId=org.devzendo -DartifactId=LibQuaqua \
 	-Dversion=${MVNVER} -Dpackaging=jar -DcreateChecksum=true \
 	-Dclassifier=sources -DpomFile=libquaqua.pom.xml
+mvn install:install-file -Dfile=libquaqua-${MVNVER}-sources.jar \
+	-DgroupId=org.devzendo -DartifactId=LibQuaqua \
+	-Dversion=${MVNVER} -Dpackaging=jar -DcreateChecksum=true \
+	-Dclassifier=javadoc -DpomFile=libquaqua.pom.xml
 mvn install:install-file -Dfile=quaqua-${MVNVER}.jar \
 	-DgroupId=org.devzendo -DartifactId=Quaqua \
 	-Dversion=${MVNVER} -Dpackaging=jar -DcreateChecksum=true \
@@ -93,6 +106,10 @@ if [ "${MVNVER}" = "${VER}-SNAPSHOT" ]; then
          -Dfile=libquaqua-${MVNVER}-sources.jar -Dclassifier=sources
     mvn deploy:deploy-file \
          -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
+         -DrepositoryId=sonatype-nexus-snapshots -DpomFile=libquaqua.pom.xml \
+         -Dfile=libquaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc
+    mvn deploy:deploy-file \
+         -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
          -DrepositoryId=sonatype-nexus-snapshots -DpomFile=quaqua.pom.xml \
          -Dfile=quaqua-${MVNVER}.jar
     mvn deploy:deploy-file \
@@ -114,6 +131,10 @@ else
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
          -Dfile=libquaqua-${MVNVER}-sources.jar -Dclassifier=sources
+    mvn gpg:sign-and-deploy-file \
+         -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
+         -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
+         -Dfile=libquaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
