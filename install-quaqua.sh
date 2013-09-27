@@ -9,11 +9,15 @@ DISTDIR=${UNZIPDIR}/dist
 cleanup() {
   rm -rf ${UNZIPDIR} 2> /dev/null
   rm quaqua-${MVNVER}.jar libquaqua-${MVNVER}.zip quaqua-${MVNVER}-sources.jar quaqua-${MVNVER}-javadoc.jar 2> /dev/null
+  rm libquaqua-${MVNVER}-sources.jar libquaqua-${MVNVER}-javadoc.jar 2> /dev/null
   rm quaqua.pom.xml libquaqua.pom.xml 2> /dev/null
   rm *.asc 2> /dev/null
 }
 
 cleanup
+echo "==== press return to start ====="
+read TRASH
+
 echo "==== unzipping from ${DIST} ===="
 unzip -q ${DIST} ${DISTDIR}/libquaqua.jnilib ${DISTDIR}/libquaqua64.jnilib ${DISTDIR}/quaqua.jar ${UNZIPDIR}/src/* ${DISTDIR}/javadoc/*
 
