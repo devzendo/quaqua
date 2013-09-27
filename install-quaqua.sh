@@ -15,9 +15,6 @@ cleanup() {
 }
 
 cleanup
-echo "==== press return to start ====="
-read TRASH
-
 echo "==== unzipping from ${DIST} ===="
 unzip -q ${DIST} ${DISTDIR}/libquaqua.jnilib ${DISTDIR}/libquaqua64.jnilib ${DISTDIR}/quaqua.jar ${UNZIPDIR}/src/* ${DISTDIR}/javadoc/*
 
@@ -103,54 +100,53 @@ if [ "${MVNVER}" = "${VER}-SNAPSHOT" ]; then
     mvn deploy:deploy-file \
          -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
          -DrepositoryId=sonatype-nexus-snapshots -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}.zip
-    mvn deploy:deploy-file \
-         -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
-         -DrepositoryId=sonatype-nexus-snapshots -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}-sources.jar -Dclassifier=sources
-    mvn deploy:deploy-file \
-         -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
-         -DrepositoryId=sonatype-nexus-snapshots -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc
+         -Dfile=libquaqua-${MVNVER}.zip -Dclassifiers=sources,javadoc \
+         -Dfiles=libquaqua-${MVNVER}-sources.jar,libquaqua-${MVNVER}-javadoc.jar \
+         -Dtypes=jar,jar
     mvn deploy:deploy-file \
          -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
          -DrepositoryId=sonatype-nexus-snapshots -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}.jar
-    mvn deploy:deploy-file \
-         -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
-         -DrepositoryId=sonatype-nexus-snapshots -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}-sources.jar -Dclassifier=sources
-    mvn deploy:deploy-file \
-         -Durl=https://oss.sonatype.org/content/repositories/snapshots/ \
-         -DrepositoryId=sonatype-nexus-snapshots -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc
+         -Dfile=quaqua-${MVNVER}.jar -Dclassifiers=sources,javadoc \
+         -Dfiles=quaqua-${MVNVER}-sources.jar,quaqua-${MVNVER}-javadoc.jar \
+         -Dtypes=jar,jar
 else
     echo "====== press return to sign/deploy non-snapshot ======"
     read TRASH
+    KEYOK=2
+    while [ $KEYOK != 0 ]
+    do
+	    echo "==== enter gpg passphrase ======"
+	    stty -echo
+	    read PP
+	    stty echo
+	    echo "1234" | gpg --no-use-agent -o /dev/null --passphrase "$PP" -as -
+	    KEYOK=$?
+    done
+
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}.zip
+         -Dfile=libquaqua-${MVNVER}.zip -Darguments=-Dgpg.passphrase="$PP"
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}-sources.jar -Dclassifier=sources
+         -Dfile=libquaqua-${MVNVER}-sources.jar -Dclassifier=sources -Darguments=-Dgpg.passphrase="$PP"
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=libquaqua.pom.xml \
-         -Dfile=libquaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc
+         -Dfile=libquaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc -Darguments=-Dgpg.passphrase="$PP"
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}.jar
+         -Dfile=quaqua-${MVNVER}.jar -Darguments=-Dgpg.passphrase="$PP"
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}-sources.jar -Dclassifier=sources
+         -Dfile=quaqua-${MVNVER}-sources.jar -Dclassifier=sources -Darguments=-Dgpg.passphrase="$PP"
     mvn gpg:sign-and-deploy-file \
          -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
          -DrepositoryId=sonatype-nexus-staging -DpomFile=quaqua.pom.xml \
-         -Dfile=quaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc
+         -Dfile=quaqua-${MVNVER}-javadoc.jar -Dclassifier=javadoc -Darguments=-Dgpg.passphrase="$PP"
 fi
 
 cleanup
