@@ -2,11 +2,11 @@ Making use of Quaqua via Maven
 ------------------------------
 
 Add the following dependency to your pom.xml:
-    <dependency>
-        <groupId>org.devzendo</groupId>
-        <artifactId>Quaqua</artifactId>
-        <version>7.3.4</version>
-    </dependency>
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.devzendo&lt;/groupId&gt;
+        &lt;artifactId&gt;Quaqua&lt;/artifactId&gt;
+        &lt;version&gt;7.3.4&lt;/version&gt;
+    &lt;/dependency&gt;
 
 Ensure that org.devzendo Quaqua-7.3.4.jar is on your classpath.
 
@@ -16,39 +16,39 @@ will be present on your classpath during execution. In the following snippet, I
 extract this zip into the location where DevZendo's CrossPlatformLauncherPlugin
 will place all libraries, for a Mac OSX GUI .app:
 
-    <!--
+    &lt;!--
       Copy the Quaqua native libraries into the correct location in the
       Mac OS X launcher structure created above.
-    -->
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-            <execution>
-                <id>unpack-quaqua-dependencies</id>
-                <phase>package</phase>
-                <goals>
-                    <goal>unpack</goal>
-                </goals>
-                <configuration>
-                    <artifactItems>
-                        <artifactItem>
-                            <groupId>org.devzendo</groupId>
-                            <artifactId>LibQuaqua</artifactId>
-                            <version>7.3.4</version>
-                            <type>zip</type>
-                            <overWrite>true</overWrite>
-                            <includes>*</includes>
-                            <outputDirectory>
+    --&gt;
+    &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+        &lt;executions&gt;
+            &lt;execution&gt;
+                &lt;id&gt;unpack-quaqua-dependencies&lt;/id&gt;
+                &lt;phase&gt;package&lt;/phase&gt;
+                &lt;goals&gt;
+                    &lt;goal&gt;unpack&lt;/goal&gt;
+                &lt;/goals&gt;
+                &lt;configuration&gt;
+                    &lt;artifactItems&gt;
+                        &lt;artifactItem&gt;
+                            &lt;groupId&gt;org.devzendo&lt;/groupId&gt;
+                            &lt;artifactId&gt;LibQuaqua&lt;/artifactId&gt;
+                            &lt;version&gt;7.3.4&lt;/version&gt;
+                            &lt;type&gt;zip&lt;/type&gt;
+                            &lt;overWrite&gt;true&lt;/overWrite&gt;
+                            &lt;includes&gt;*&lt;/includes&gt;
+                            &lt;outputDirectory&gt;
                                 ${project.build.directory}/macosx/${appName}.app/Contents/Resources/Java/lib
-                            </outputDirectory>
-                        </artifactItem>
-                    </artifactItems>
-                    <!-- other configurations here -->
-                </configuration>
-            </execution>
-        </executions>
-    </plugin>
+                            &lt;/outputDirectory&gt;
+                        &lt;/artifactItem&gt;
+                    &lt;/artifactItems&gt;
+                    &lt;!-- other configurations here --&gt;
+                &lt;/configuration&gt;
+            &lt;/execution&gt;
+        &lt;/executions&gt;
+    &lt;/plugin&gt;
 
 For more info on the CrossPlatformLauncherPlugin, please see
 http://devzendo.org/content/xplp/
