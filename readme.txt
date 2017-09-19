@@ -4,13 +4,13 @@ Making use of Quaqua via Maven
 Add the following dependency to your pom.xml:
     &lt;dependency&gt;
         &lt;groupId&gt;org.devzendo&lt;/groupId&gt;
-        &lt;artifactId&gt;Quaqua&lt;/artifactId&gt;
-        &lt;version&gt;7.3.4&lt;/version&gt;
+        &lt;artifactId&gt;quaqua&lt;/artifactId&gt;
+        &lt;version&gt;9.1&lt;/version&gt;
     &lt;/dependency&gt;
 
-Ensure that org.devzendo Quaqua-7.3.4.jar is on your classpath.
+Ensure that org.devzendo quaqua-9.1.jar is on your classpath.
 
-Ensure that the org.devzendo LibQuaqua-7.3.4.zip containing Quaqua's native
+Ensure that the org.devzendo libquaqua-9.1.zip containing Quaqua's native
 libraries is unzipped during your package phase, and is placed somewhere that
 will be present on your classpath during execution. In the following snippet, I
 extract this zip into the location where DevZendo's CrossPlatformLauncherPlugin
@@ -34,8 +34,8 @@ will place all libraries, for a Mac OSX GUI .app:
                     &lt;artifactItems&gt;
                         &lt;artifactItem&gt;
                             &lt;groupId&gt;org.devzendo&lt;/groupId&gt;
-                            &lt;artifactId&gt;LibQuaqua&lt;/artifactId&gt;
-                            &lt;version&gt;7.3.4&lt;/version&gt;
+                            &lt;artifactId&gt;libquaqua&lt;/artifactId&gt;
+                            &lt;version&gt;9.1&lt;/version&gt;
                             &lt;type&gt;zip&lt;/type&gt;
                             &lt;overWrite&gt;true&lt;/overWrite&gt;
                             &lt;includes&gt;*&lt;/includes&gt;
@@ -51,7 +51,7 @@ will place all libraries, for a Mac OSX GUI .app:
     &lt;/plugin&gt;
 
 For more info on the CrossPlatformLauncherPlugin, please see
-http://devzendo.org/content/xplp/
+https://devzendo.github.io/dev/xplp/
 
 In your code, you can then:
 UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");

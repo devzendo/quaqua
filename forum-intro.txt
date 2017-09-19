@@ -1,5 +1,5 @@
 Hi,
-I've been working with Quaqua (7.3.4) in several Maven projects for some time,
+I've been working with Quaqua (9.1) in several Maven projects for some time,
 and have started publishing these to the Central Maven Repository. Wanting all
 their dependencies published there as well, I have packaged up Quaqua and its
 native libraries, and am in the process of publishing these to Central.
@@ -10,10 +10,8 @@ org.devzendo, not ch.randelshofer, as I can't publish there. Their contents are
 taken from the releases from the Quaqua site, and the pom.xml files published
 with them cite Werner's copyright, and choice of licenses.
 
-If this is of interest, please see http://devzendo.org/content/mavenised-quaqua
-for more details. I hope to publish 7.3.4 as a non-snapshot later this week - if
-there are
-no objections. Then, upgrade to 8.
+If this is of interest, please see https://devzendo.github.io/dev/mavenised-quaqua/
+for more details. I hope to publish 9.1 as a non-snapshot later this week.
 
 Regards,
 Matt Gumbley 

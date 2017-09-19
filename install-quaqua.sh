@@ -1,5 +1,5 @@
 #!/bin/bash
-VER=7.3.4
+VER=9.1
 MVNVER=${VER}
 #MVNVER=${VER}-SNAPSHOT
 DIST=quaqua-${VER}.zip
@@ -15,6 +15,7 @@ cleanup() {
 }
 
 cleanup
+
 echo "==== unzipping from ${DIST} ===="
 unzip -q ${DIST} ${DISTDIR}/libquaqua.jnilib ${DISTDIR}/libquaqua64.jnilib ${DISTDIR}/quaqua.jar ${UNZIPDIR}/src/* ${DISTDIR}/javadoc/*
 

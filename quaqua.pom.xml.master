@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.devzendo</groupId>
-    <artifactId>Quaqua</artifactId>
-    <name>Quaqua</name>
+    <artifactId>quaqua</artifactId>
+    <name>quaqua</name>
     <version>VERSION</version>
     <description>A Mavenisation of the Quaqua Mac OSX Swing Look and Feel (Java library)
-Quaqua Look and Feel (C) 2003-2010, Werner Randelshofer. 
+Quaqua Look and Feel (C) 2003-2017, Werner Randelshofer.
 Mavenisation by Matt Gumbley, DevZendo.org - for problems with
 Mavenisation, see Matt; for issues with Quaqua, see the Quaqua home page.
 For full license details, see http://randelshofer.ch/quaqua/license.html
@@ -34,12 +34,9 @@ For full license details, see http://randelshofer.ch/quaqua/license.html
          along with the Mavenisation script. See Werner's site for master
          releases of Quaqua. -->
     <scm>
-        <url>http://devzendo-org-quaqua.googlecode.com/hg/</url>
-        <connection>scm:hg:http://devzendo-org-quaqua.googlecode.com/hg/
-        </connection>
-        <developerConnection>
-            scm:hg:https://devzendo-org-quaqua.googlecode.com/hg/
-        </developerConnection>
+        <url>https://bitbucket.org/devzendo/quaqua</url>
+        <connection>scm:hg:https://bitbucket.org/devzendo/quaqua</connection>
+        <developerConnection>scm:hg:https://bitbucket.org/devzendo/quaqua</developerConnection>
     </scm>
     <developers>
         <developer>
@@ -53,11 +50,5 @@ For full license details, see http://randelshofer.ch/quaqua/license.html
             <email>matt.gumbley@devzendo.org</email>
         </developer>
     </developers>
-
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
 
 </project>
