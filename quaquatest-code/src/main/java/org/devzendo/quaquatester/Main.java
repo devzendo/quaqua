@@ -34,6 +34,7 @@ public class Main {
     public static void main(String[] args) {
         final String javaLibraryPath = System.getProperty("java.library.path");
         final StringBuilder sb = new StringBuilder();
+        sb.append("java.version is " + System.getProperty("java.version") + "\n");
         sb.append("java.library.path is '" + javaLibraryPath + "'\n");
         boolean found = false;
         final String[] paths = javaLibraryPath.split(":");
