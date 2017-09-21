@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.devzendo</groupId>
+    <artifactId>quaqua-tester</artifactId>
+    <packaging>pom</packaging>
+    <name>Quaqua distribution test app</name>
+    <version>1.0.0-SNAPSHOT</version>
+    <description>A test app for the quaqua distribution. install-quaqua.sh is the packaging/install/deployment script
+        for the library. This just builds an OSX app that uses quaqua to make sure the libraries work.
+        (Apache License v2) 2017 Matt Gumbley, DevZendo.org
+    </description>
+    <url>http://www.devzendo.org/content/quaqua</url>
+
+    <organization>
+        <name>DevZendo.org</name>
+        <url>http://devzendo.org/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>matt.gumbley</id>
+            <name>Matt Gumbley</name>
+            <email>matt.gumbley@devzendo.org</email>
+        </developer>
+    </developers>
+
+    <parent>
+        <groupId>org.devzendo</groupId>
+        <artifactId>group-parent</artifactId>
+        <version>1.1.0-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>quaquatest-code</module>
+        <module>quaquatest-macosx</module>
+    </modules>
+
+</project>
