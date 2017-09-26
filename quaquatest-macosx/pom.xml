@@ -28,6 +28,7 @@
                     <applicationName>${appName}</applicationName>
                     <mainClassName>${main.class}</mainClassName>
                     <iconsFileName>QuaquaTester.icns</iconsFileName>
+                    <stubType>Universal</stubType>
                     <!--
                       I don't have an assigned creator code
                       <bundleSignature>BM</bundleSignature>
